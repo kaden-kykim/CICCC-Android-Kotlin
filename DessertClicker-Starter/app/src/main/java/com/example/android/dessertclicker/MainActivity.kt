@@ -18,6 +18,7 @@ package com.example.android.dessertclicker
 
 import android.content.ActivityNotFoundException
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -27,6 +28,8 @@ import androidx.databinding.DataBindingUtil
 import com.example.android.dessertclicker.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private val tag = this.javaClass.simpleName
 
     private var revenue = 0
     private var dessertsSold = 0
@@ -63,6 +66,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.i(tag, "onCreate called")
 
         // Use Data Binding to get reference to the views
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -77,6 +81,52 @@ class MainActivity : AppCompatActivity() {
 
         // Make sure the correct dessert is showing
         binding.dessertButton.setImageResource(currentDessert.imageId)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        // Called when the Activity is 'becoming visible to user
+        // Can be called more than once during lifecycle
+        Log.i(tag, "onStart called")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Called when Activity will start interacting with user
+        // 'running state' - starts accepting user input
+        Log.i(tag, "onResume called")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Called when system is about to resume a previous activity
+        // 'The activity is partly visible but user is leaving the activity'
+        Log.i(tag, "onPause called")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        // Called when the Activity is no longer visible to the user
+        // New Activity is being started, an existing one is brought in front
+        // of this activity, or this one is being destroyed
+        // Operations that were too heavy-weight for onPause
+        Log.i(tag, "onStop called")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Final call before this Activity is destroyed
+        // when User navigates to previous Activity, or configuration change(e.g. orientation)
+        // Manually call finish() method to destroy the activity
+        // and call isFinishing() method to check
+        // System 'may' destroy Activity
+        // so use onPause or onStop to save data or state
+        Log.i(tag, "onDestroy called")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.i(tag, "onRestart called")
     }
 
     /**
