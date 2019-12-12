@@ -63,3 +63,15 @@ fun main() {
     timer.tick()
     timer.tick()
 }
+
+// Android Activity "Lifecycle"
+// - onCreate
+// - onStart
+// - onResume
+// - onPause
+// - onStop
+// - onDestroy
+// - onRestart
+
+// Timer -> observe(subscribe) to the activity lifecycle
+// Timer can respond to the activity lifecycle callbacks
