@@ -27,7 +27,6 @@ import androidx.databinding.DataBindingUtil
 import com.example.android.dessertclicker.databinding.ActivityMainBinding
 import timber.log.Timber
 
-
 class MainActivity : AppCompatActivity() {
     private lateinit var dessertTimer: DessertTimer
 
@@ -66,7 +65,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Timber.plant(Timber.DebugTree())
         // i: informational d: debug e: error w: warming
         // AppCompatActivity -> FragmentActivity implements LifecycleOwner
 
