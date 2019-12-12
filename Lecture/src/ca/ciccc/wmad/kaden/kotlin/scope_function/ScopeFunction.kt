@@ -1,4 +1,4 @@
-package ca.ciccc.wmad.kaden.kotlin.dec_11
+package ca.ciccc.wmad.kaden.kotlin.scope_function
 
 import kotlin.random.Random
 
