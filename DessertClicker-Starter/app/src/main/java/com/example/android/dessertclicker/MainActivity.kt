@@ -18,7 +18,6 @@ package com.example.android.dessertclicker
 
 import android.content.ActivityNotFoundException
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -28,9 +27,9 @@ import androidx.databinding.DataBindingUtil
 import com.example.android.dessertclicker.databinding.ActivityMainBinding
 import timber.log.Timber
 
-class MainActivity : AppCompatActivity() {
 
-    private val tag = this.javaClass.simpleName
+class MainActivity : AppCompatActivity() {
+    private lateinit var dessertTimer: DessertTimer
 
     private var revenue = 0
     private var dessertsSold = 0
@@ -67,7 +66,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.i(tag, "onCreate called")
+        Timber.plant(Timber.DebugTree())
+        // i: informational d: debug e: error w: warming
+        // AppCompatActivity -> FragmentActivity implements LifecycleOwner
+
+        dessertTimer = DessertTimer(this.lifecycle)
         Timber.i("OnCreate Called")
 
         // Use Data Binding to get reference to the views
@@ -89,21 +92,21 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         // Called when the Activity is 'becoming visible to user
         // Can be called more than once during lifecycle
-        Log.i(tag, "onStart called")
+        Timber.i("onStart called")
     }
 
     override fun onResume() {
         super.onResume()
         // Called when Activity will start interacting with user
         // 'running state' - starts accepting user input
-        Log.i(tag, "onResume called")
+        Timber.i("onResume called")
     }
 
     override fun onPause() {
         super.onPause()
         // Called when system is about to resume a previous activity
         // 'The activity is partly visible but user is leaving the activity'
-        Log.i(tag, "onPause called")
+        Timber.i("onPause called")
     }
 
     override fun onStop() {
@@ -112,7 +115,7 @@ class MainActivity : AppCompatActivity() {
         // New Activity is being started, an existing one is brought in front
         // of this activity, or this one is being destroyed
         // Operations that were too heavy-weight for onPause
-        Log.i(tag, "onStop called")
+        Timber.i("onStop called")
     }
 
     override fun onDestroy() {
@@ -123,12 +126,12 @@ class MainActivity : AppCompatActivity() {
         // and call isFinishing() method to check
         // System 'may' destroy Activity
         // so use onPause or onStop to save data or state
-        Log.i(tag, "onDestroy called")
+        Timber.i("onDestroy called")
     }
 
     override fun onRestart() {
         super.onRestart()
-        Log.i(tag, "onRestart called")
+        Timber.i("onRestart called")
     }
 
     /**
