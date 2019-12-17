@@ -62,7 +62,7 @@ class GameFragment : Fragment() {
     lateinit var currentQuestion: Question
     lateinit var answers: MutableList<String>
     private var questionIndex = 0
-    private val numQuestions = 1//Math.min((questions.size + 1) / 2, 3)
+    private val numQuestions = Math.min((questions.size + 1) / 2, 3)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
