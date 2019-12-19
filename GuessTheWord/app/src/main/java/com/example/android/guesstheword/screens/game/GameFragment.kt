@@ -80,7 +80,6 @@ class GameFragment : Fragment() {
         gameFinished()
     }
 
-
     /**
      * Called when the game is finished
      */
