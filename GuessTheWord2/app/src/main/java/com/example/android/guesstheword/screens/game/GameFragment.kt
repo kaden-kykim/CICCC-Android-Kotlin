@@ -56,14 +56,11 @@ class GameFragment : Fragment() {
         // Set the viewmodel for databinding - this allows the bound layout access
         // to all the data in the ViewModel
         binding.gameViewModel = viewModel
+        // Specify the current activity as the lifecycle owner of the binding
+        // This is used so that the binding can observe LiveData updates
+        binding.lifecycleOwner = this
 
         /** Setting up LiveData observation relationship **/
-        viewModel.score.observe(this, Observer {
-            binding.scoreText.text = it.toString()
-        })
-        viewModel.word.observe(this, Observer {
-            binding.wordText.text = it
-        })
         // Observer for the Game finished event
         viewModel.eventGameFinish.observe(this, Observer<Boolean> {
             if (it) gameFinished()

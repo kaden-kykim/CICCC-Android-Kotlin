@@ -54,11 +54,9 @@ class ScoreFragment : Fragment() {
         viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(ScoreViewModel::class.java)
         binding.scoreViewModel = viewModel
-
-        // Add observer for score
-        viewModel.score.observe(this, Observer {
-            binding.scoreText.text = it.toString()
-        })
+        // Specify the current activity as the lifecycle owner of the binding.
+        // this is used so that the binding can observe LiveData updates
+        binding.lifecycleOwner = this
 
         // Navigates back to game when button is pressed
         viewModel.eventPlayAgain.observe(this, Observer {
