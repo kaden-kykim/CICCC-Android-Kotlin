@@ -12,7 +12,7 @@ import com.github.kittinunf.fuel.Fuel
 // - RecyclerView.ViewHolder - layout (v)
 // - LayoutManager - LinearLayoutManager, GridLayoutManager, ...
 
-class MainActivity : AppCompatActivity(), SWAdapter.Callback {
+class MainActivity : AppCompatActivity() {
 
     companion object {
         const val NAME_EXTRA = "NAME"
@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity(), SWAdapter.Callback {
 
         val recyclerView: RecyclerView = findViewById(R.id.swRecyclerView)
 
-
         // android
         Fuel.get("https://swapi.co/api/people/")
             .responseObject(Data.Deserializer()) { _, _, result ->
@@ -39,12 +38,16 @@ class MainActivity : AppCompatActivity(), SWAdapter.Callback {
                     // 1. set the layout manager (or in the layout - xml file)
 //                    recyclerView.layoutManager = LinearLayoutManager(this)
                     // 2. set adapter
-                    recyclerView.adapter = SWAdapter(it.results, this)
+                    val swAdapter = SWAdapter(it.results)
+                    swAdapter.onItemClick = { item ->
+                        detailInformation(item)
+                    }
+                    recyclerView.adapter = swAdapter
                 }
             }
     }
 
-    override fun onClick(item: SWChar) {
+    private fun detailInformation(item: SWChar) {
         intent = Intent(this, DetailActivity::class.java)
 
         intent.putExtra(NAME_EXTRA, item.name)
