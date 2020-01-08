@@ -60,6 +60,5 @@ class SleepNightAdapter : RecyclerView.Adapter<SleepNightAdapter.ViewHolder>() {
                 else -> R.drawable.ic_sleep_active
             })
         }
-
     }
 }
