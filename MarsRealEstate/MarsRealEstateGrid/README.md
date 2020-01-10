@@ -1,7 +1,7 @@
-MarsRealEstate - Starter Code
-==============================
+MarsRealEstateNetwork - Solution Code
+=====================================
 
-Starter code for Android Kotlin Fundamentals Codelab 8.1 Getting data from the internet
+Solution code for Android Kotlin Fundamentals Codelab 8.1 Getting data from the internet
 
 Introduction
 ------------

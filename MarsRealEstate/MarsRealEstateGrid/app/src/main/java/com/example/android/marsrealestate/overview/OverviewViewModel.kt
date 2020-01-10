@@ -38,8 +38,11 @@ class OverviewViewModel : ViewModel() {
     val response: LiveData<String>
         get() = _response
 
+    // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
+    // the Coroutine runs using the Main (UI) dispatcher
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main )
 
     /**
      * Call getMarsRealEstateProperties() on init so we can display status immediately.
@@ -49,13 +52,16 @@ class OverviewViewModel : ViewModel() {
     }
 
     /**
-     * Sets the value of the status LiveData to the Mars API status.
+     * Sets the value of the response LiveData to the Mars API status or the successful number of
+     * Mars properties retrieved.
      */
     private fun getMarsRealEstateProperties() {
         coroutineScope.launch {
-            var getPropertyDeferred = MarsApi.retrofitService.getProperties()
+            // Get the Deferred object for our Retrofit request
+            var getPropertiesDeferred = MarsApi.retrofitService.getProperties()
             try {
-                var listResult = getPropertyDeferred.await()
+                // Await the completion of our Retrofit request
+                var listResult = getPropertiesDeferred.await()
                 _response.value = "Success: ${listResult.size} Mars properties retrieved"
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
@@ -63,6 +69,10 @@ class OverviewViewModel : ViewModel() {
         }
     }
 
+    /**
+     * When the [ViewModel] is finished, we cancel our coroutine [viewModelJob], which tells the
+     * Retrofit service to stop.
+     */
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
