@@ -1,5 +1,6 @@
 package ca.ciccc.wmad.kaden.contacts.network
 
+import ca.ciccc.wmad.kaden.contacts.list.ContactList
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
@@ -17,10 +18,11 @@ private val retrofit = Retrofit.Builder()
 
 interface ContactApiService {
     @GET("?nat=ca")
-    fun getContacts(@Query("results") num: Int): Deferred<String>
+    fun getContactsAsync(@Query("results") num: Int): Deferred<ContactList>
 }
 
 object ContactApi {
-    val retrofitService :
-            ContactApiService by lazy { retrofit.create(ContactApiService::class.java) }
+    val retrofitService: ContactApiService by lazy {
+        retrofit.create(ContactApiService::class.java)
+    }
 }
