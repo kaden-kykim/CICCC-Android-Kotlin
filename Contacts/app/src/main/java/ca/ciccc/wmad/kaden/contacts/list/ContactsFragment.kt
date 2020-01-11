@@ -23,6 +23,7 @@ class ContactsFragment : Fragment() {
 
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+        binding.contactList.adapter = ContactAdapter()
 
         return binding.root
     }

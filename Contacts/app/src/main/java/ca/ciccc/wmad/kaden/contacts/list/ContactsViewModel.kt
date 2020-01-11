@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-private const val NUM_OF_CONTACTS = 5
+private const val NUM_OF_CONTACTS = 30
 
 class ContactsViewModel : ViewModel() {
 
@@ -19,14 +19,9 @@ class ContactsViewModel : ViewModel() {
     // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    private val _contactsList = MutableLiveData<ContactList>()
-    val contactsList: LiveData<ContactList>
+    private val _contactsList = MutableLiveData<List<Contact>>()
+    val contactsList: LiveData<List<Contact>>
         get() = _contactsList
-
-    // Temporal Variables: response
-    private val _response = MutableLiveData<String>()
-    val response: LiveData<String>
-        get() = _response
 
     init {
         getContacts(NUM_OF_CONTACTS)
@@ -37,11 +32,12 @@ class ContactsViewModel : ViewModel() {
             val getContactsDeferred = ContactApi.retrofitService.getContactsAsync(number)
             try {
                 val result = getContactsDeferred.await()
-                _contactsList.value = result
-                _response.value = "Success: ${result.contactList.size} Contacts transmitted"
+                _contactsList.value = result.contactList
+                    .sortedWith(Comparator { contact1: Contact, contact2: Contact ->
+                        (contact1.name.first.compareTo(contact2.name.first))
+                    })
             } catch (e: Exception) {
-                _contactsList.value = ContactList(ArrayList())
-                _response.value = "Failure: ${e.message}"
+                _contactsList.value = ArrayList()
             }
         }
     }

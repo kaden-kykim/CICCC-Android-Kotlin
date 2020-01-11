@@ -4,7 +4,8 @@ import androidx.core.text.isDigitsOnly
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-private const val NA = "Undefined"
+private const val INIT_STR = "Undefined"
+private const val INIT_NUM = 0.0
 
 data class ContactList(
     @SerializedName("results")
@@ -13,28 +14,25 @@ data class ContactList(
 
 data class Contact(
     @SerializedName("gender")
-    val gender: String,
+    val gender: String = INIT_STR,
     @SerializedName("name")
-    val name: Name,
+    val name: Name = Name(INIT_STR, INIT_STR),
     @SerializedName("location")
-    val location: Location,
+    val location: Location = Location(Street(INIT_NUM, INIT_STR), INIT_STR, INIT_STR, INIT_STR),
     @SerializedName("email")
-    val email: String,
+    val email: String = INIT_STR,
     @SerializedName("cell")
-    val cell: String
+    val cell: String = INIT_STR,
+    @SerializedName("login")
+    val login: Login = Login(UUID.randomUUID().toString(), INIT_STR)
 ) {
     fun genContact(first: String, last: String, cell: String): Contact {
-        return Contact(NA, Name(first, last), Location(Street(.0, NA), NA, NA, NA), NA, cell)
+        return Contact(name = Name(first, last), cell = cell)
     }
 
     companion object {
-        fun isCellAvailable(cell: String): Boolean {
-            return (cell.length == 10) && cell.isDigitsOnly()
-        }
-
-        fun isNameAvailable(name: String): Boolean {
-            return StringTokenizer(name, " ").countTokens() == 2
-        }
+        fun isCellAvailable(cell: String) = (cell.length == 10) && cell.isDigitsOnly()
+        fun isNameAvailable(name: String) = StringTokenizer(name, " ").countTokens() == 2
     }
 }
 
@@ -43,7 +41,9 @@ data class Name(
     val first: String,
     @SerializedName("last")
     val last: String
-)
+) {
+    fun getFullName() = "$first $last"
+}
 
 data class Location(
     @SerializedName("street")
@@ -61,4 +61,11 @@ data class Street(
     val number: Double,
     @SerializedName("name")
     val name: String
+)
+
+data class Login(
+    @SerializedName("uuid")
+    val uuid: String,
+    @SerializedName("username")
+    val userName: String
 )

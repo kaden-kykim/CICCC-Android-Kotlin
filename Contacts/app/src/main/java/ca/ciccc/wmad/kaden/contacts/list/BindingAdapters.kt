@@ -1,0 +1,21 @@
+package ca.ciccc.wmad.kaden.contacts.list
+
+import android.widget.TextView
+import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
+
+@BindingAdapter("contactList")
+fun bindRecyclerView(recyclerView: RecyclerView, data: List<Contact>?) {
+    val adapter = recyclerView.adapter as ContactAdapter
+    adapter.submitList(data)
+}
+
+@BindingAdapter("fullNameString")
+fun setFullNameString(textView: TextView, fullName: String?) {
+    fullName?.let { textView.text = it }
+}
+
+@BindingAdapter("cellString")
+fun setCellString(textView: TextView, cell: String?) {
+    cell?.let { textView.text = it }
+}
