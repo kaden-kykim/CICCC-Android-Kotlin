@@ -31,11 +31,7 @@ class ContactsViewModel : ViewModel() {
         coroutineScope.launch {
             val getContactsDeferred = ContactApi.retrofitService.getContactsAsync(number)
             try {
-                val result = getContactsDeferred.await()
-                _contactsList.value = result.contactList
-                    .sortedWith(Comparator { contact1: Contact, contact2: Contact ->
-                        (contact1.name.first.compareTo(contact2.name.first))
-                    })
+                _contactsList.value = getContactsDeferred.await().contactList
             } catch (e: Exception) {
                 _contactsList.value = ArrayList()
             }
