@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ca.ciccc.wmad.kaden.contacts.R
 import ca.ciccc.wmad.kaden.contacts.databinding.ListViewContactItemBinding
+import ca.ciccc.wmad.kaden.contacts.network.Contact
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -8,7 +8,28 @@
     <fragment
         android:id="@+id/contactsFragment"
         android:name="ca.ciccc.wmad.kaden.contacts.list.ContactsFragment"
-        android:label="ContactsFragment"
-        tools:layout="@layout/fragment_contacts" />
+        android:label="Contact List"
+        tools:layout="@layout/fragment_contacts">
+        <action
+            android:id="@+id/action_contactsFragment_to_additionFragment"
+            app:destination="@id/additionFragment"
+            app:enterAnim="@anim/slide_in_right" />
+        <argument
+            android:name="newContact"
+            app:argType="ca.ciccc.wmad.kaden.contacts.network.Contact" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/additionFragment"
+        android:name="ca.ciccc.wmad.kaden.contacts.addition.AdditionFragment"
+        android:label="Add Contact"
+        tools:layout="@layout/fragment_addition">
+        <action
+            android:id="@+id/action_additionFragment_to_contactsFragment"
+            app:destination="@id/contactsFragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@+id/contactsFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
 
 </navigation>

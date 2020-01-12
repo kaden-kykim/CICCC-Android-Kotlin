@@ -1,6 +1,5 @@
 package ca.ciccc.wmad.kaden.contacts.network
 
-import ca.ciccc.wmad.kaden.contacts.list.ContactList
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit

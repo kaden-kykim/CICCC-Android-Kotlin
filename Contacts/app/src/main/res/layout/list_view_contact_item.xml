@@ -7,7 +7,7 @@
 
         <variable
             name="contact"
-            type="ca.ciccc.wmad.kaden.contacts.list.Contact" />
+            type="ca.ciccc.wmad.kaden.contacts.network.Contact" />
     </data>
 
     <LinearLayout
