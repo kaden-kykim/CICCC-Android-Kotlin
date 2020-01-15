@@ -29,7 +29,7 @@
             app:destination="@id/contactsFragment"
             app:launchSingleTop="false"
             app:popUpTo="@+id/contactsFragment"
-            app:popUpToInclusive="false" />
+            app:popUpToInclusive="true" />
     </fragment>
 
 </navigation>
